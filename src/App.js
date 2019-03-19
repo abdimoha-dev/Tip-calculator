@@ -7,24 +7,33 @@ class App extends Component {
     super(props);
     // Define your state object here
     this.state = {
-      bil: 0,
-      NumberOfPeople: 0,
-      serviceQual: 0
+      bil: '',
+      NumberOfPeople: '',
+      serviceQual: '',
+      totalTip: '',
+
     }
   }
-
+  // handle new bill state
   handleBill(event) {
-    this.setState({bil: event.target.value})
-    
+    this.setState({ bil: event.target.value })
   }
-  handlePeople(event){
-    this.setState({NumberOfPeople: event.target.value})
+  // handle number of people state
+  handlePeople(event) {
+    this.setState({ NumberOfPeople: event.target.value })
   }
-
-  handleService(event){
-    this.setState({serviceQual: event.target.value})
+  // handle service state
+  handleService(event) {
+    this.setState({ serviceQual: event.target.value })
   }
-  
+  // handle tip calculation
+  calculate() {
+    if (this.state.bil === "" || this.state.serviceQual == '') {
+      alert("Please enter values!!");
+      return;
+    }
+    this.setState({ totalTip: (this.state.serviceQual * this.state.bil )/this.state.NumberOfPeople})
+  }
 
   render() {
     const bill = 'How much was your bill?';
@@ -34,9 +43,11 @@ class App extends Component {
     return (
       <div id="container">
         <h1>Tip Calculator</h1>
+
         <form>
+
           <p>{bill}</p>
-          $ <input id="billamount" name='bill' value={this.state.bil}  type="text" placeholder="Bill Amount" onChange={this.handleBill.bind(this)}/>
+          $ <input id="billamount" name='bill' value={this.state.bil} type="text" placeholder="Bill Amount" onChange={this.handleBill.bind(this)} />
           <p>{Service_quality}</p>
           <p>
             <select id="serviceQual" name='serviceQual' value={this.state.serviceQual} onChange={this.handleService.bind(this)}>
@@ -50,14 +61,13 @@ class App extends Component {
           </p>
           <p>{NumberOfPeople}</p>
           <input id="peopleamt" name='NumberOfPeople' value={this.state.NumberOfPeople} onChange={this.handlePeople.bind(this)} type="text" placeholder="Number of People" />
-          {/* <p><button onClick={this.handleChange}>Calculate!</button></p> */}
-          <p><button>Calculate!</button></p>
+          <p><button onClick={this.calculate.bind(this)}>Calculate!</button></p>
 
         </form>
 
         <div id="totalTip">
           <sup>$</sup><span id="tip">0.00</span>
-          The Bill is: {this.state.serviceQual}
+          The Bill is: {this.state.totalTip}
           <small id="each">each</small>
         </div>
       </div>
