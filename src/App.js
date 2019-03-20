@@ -7,10 +7,10 @@ class App extends Component {
     super(props);
     // Define your state object here
     this.state = {
-      bil: '',
-      NumberOfPeople: '',
-      serviceQual: '',
-      totalTip: '',
+      bil: 0,
+      NumberOfPeople: 0,
+      serviceQual: 0,
+      totalTip: 0,
 
     }
   }
@@ -28,11 +28,7 @@ class App extends Component {
   }
   // handle tip calculation
   calculate() {
-    if (this.state.bil === "" || this.state.serviceQual == '') {
-      alert("Please enter values!!");
-      return;
-    }
-    this.setState({ totalTip: (this.state.serviceQual * this.state.bil )/this.state.NumberOfPeople})
+    this.setState({ totalTip: (this.state.serviceQual * this.state.bil)/this.state.NumberOfPeople})
   }
 
   render() {
@@ -66,8 +62,7 @@ class App extends Component {
         </form>
 
         <div id="totalTip">
-          <sup>$</sup><span id="tip">0.00</span>
-          The Bill is: {this.state.totalTip}
+          <sup></sup><span id="tip">The Bill is: {this.state.totalTip}$</span>
           <small id="each">each</small>
         </div>
       </div>
